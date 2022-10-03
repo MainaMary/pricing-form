@@ -1,16 +1,17 @@
 const mongoose = require("mongoose");
 const express = require("express");
+const cors = require("cors");
 require("dotenv").config();
 const app = express();
-const port = 5000 || process.env.PORT;
+const port = 7000 || process.env.PORT;
 const connection_string = process.env.CONNECTION_STRING;
-console.log(connection_string, "connection string");
+const location = require("./location");
 
 //configure middleware
 app.use(express.json());
-
+app.use(cors());
 app.get("/", (req, res) => {
-  res.send("Welcome to our pricing form");
+  res.send(location);
 });
 app.listen(port, console.log(`Server is running on ${port}`));
 mongoose
