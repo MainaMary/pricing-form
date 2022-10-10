@@ -8,6 +8,7 @@ const priceSchema = new mongoose.Schema({
   discount: Number,
   subsidy: Number,
   total: Number,
+  date: { type: Date, default: new Date() },
 });
 const Price = mongoose.model("Price", priceSchema);
 
