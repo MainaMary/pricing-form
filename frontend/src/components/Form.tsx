@@ -17,7 +17,8 @@ const Form = () => {
   };
   return (
     <div className=" m-auto flex mt-16 items-center justify-center max-w-4xl   rounded-md">
-      <form className="w-full bg-white shadow-lg px-9 py-9">
+      <form className="w-full bg-white shadow-lg px-6 py-9">
+        <h2 className="mb-4 text-gray-700 text-lg font-bold">Add charges</h2>
         <div className="mb-3">
           <Label>Location</Label>
           <select className="shadow border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"></select>
