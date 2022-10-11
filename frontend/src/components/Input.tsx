@@ -4,6 +4,7 @@ interface Props {
   onChange: (x: any) => void;
   name: string;
   placeholder: string;
+  value: string | number | null;
 }
 
 const Input = (props: Props) => {
