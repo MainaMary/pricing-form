@@ -55,8 +55,8 @@ router.post("/productsVarieties", async (req, res) => {
   }
 });
 
-router.get("/productsVarieties:id", async (req, res) => {
-  const response = await Price.find().sort({ date: -1 });
+router.get("/productsVarieties", async (req, res) => {
+  const response = await Price.find();
   res.send(response);
 });
 router.delete("/productVarieties:id", async (req, res) => {
