@@ -9,15 +9,17 @@ interface VProps {
   subsidy: number;
 }
 const initialState = {
-  items: {},
+  items: [],
   status: "",
 };
 export const fetchVarieties = createAsyncThunk(
   "variety/fetchVarieties",
   async () => {
     try {
-      const response = await axios.get(varietyUrl);
-      console.log(response?.data);
+      const response = await axios.get(
+        "http://localhost:5000/productsVarieties"
+      );
+
       return response?.data;
     } catch (error: any) {
       console.log(error.messaage);
