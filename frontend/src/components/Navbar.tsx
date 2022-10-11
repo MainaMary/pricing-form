@@ -1,12 +1,15 @@
 import React from "react";
-import { fetchVarieties } from "../features/AddVarietySlice";
-import { Store } from "../store";
-
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../store";
+import { useNavigate } from "react-router-dom";
 const Navbar = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const varietiesArr = useSelector((state: RootState) => state.variety);
   const handleClick = () => {
-    Store.dispatch(fetchVarieties);
-    console.log("hello world");
+    navigate("/products");
   };
+
   return (
     <nav className=" text-white px-7 h-16 items-center shadow-md bg-blue-500 w-full fixed top-0 left-0 flex justify-between">
       <h2 className="text-xl">Price form</h2>
