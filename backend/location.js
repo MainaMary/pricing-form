@@ -1,7 +1,7 @@
 const location = [
-  { id: 1, site: "supermarket" },
-  { id: 2, site: "hpermarket" },
-  { id: 3, site: "shop" },
+  { id: 1, site: "Supermarket" },
+  { id: 2, site: "Hypermarket" },
+  { id: 3, site: "Shop" },
 ];
 
 module.exports = location;
