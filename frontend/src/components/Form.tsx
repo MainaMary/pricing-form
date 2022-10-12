@@ -7,10 +7,13 @@ import axios from "axios";
 import { addVarieties } from "../features/CreateVarietySlice";
 import { useDispatch } from "react-redux";
 import { FormType } from "../types";
-
+import { AppDispatch } from "../store";
+import { useSelector } from "react-redux";
+import { RootState } from "../store";
 const Form = () => {
   const id = useId();
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
+  const arr = useSelector((state: RootState) => state.createVariety);
   const [formValues, setFormValues] = useState<FormType>({
     name: "",
     index: 0,
@@ -28,6 +31,7 @@ const Form = () => {
     setFormValues({ ...formValues, [name]: value, date: date, productId: id });
   };
   //const { data: response, error } = useAddNewVarietyMutation();
+  console.log(arr, "response data");
   const handleSubmit = (e: any) => {
     e.preventDefault();
     console.log(formValues, "formValues");
