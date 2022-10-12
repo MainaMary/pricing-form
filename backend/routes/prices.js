@@ -22,17 +22,17 @@ const handleValidation = (req) => {
   if (error) return res.status(400).send("Validation error");
 };
 router.post("/productsVarieties", async (req, res) => {
-  const schema = Joi.object({
-    name: Joi.string().required(),
-    productId: Joi.string(),
-    taxation: Joi.number(),
-    discount: Joi.number(),
-    subsidy: Joi.number(),
-    total: Joi.number(),
-    index: Joi.number(),
-  });
-  const { error } = schema.validate(req.body);
-  if (error) return res.status(400).send("Validation error");
+  // const schema = Joi.object({
+  //   name: Joi.string().required(),
+  //   productId: Joi.string(),
+  //   taxation: Joi.number(),
+  //   discount: Joi.number(),
+  //   subsidy: Joi.number(),
+  //   total: Joi.number(),
+  //   index: Joi.number(),
+  // });
+  // const { error } = schema.validate(req.body);
+  // if (error) return res.status(400).send("Validation error");
   const { name, productId, index, taxation, discount, subsidy, total, date } =
     req.body;
   const todo = new Price({
@@ -58,6 +58,15 @@ router.post("/productsVarieties", async (req, res) => {
 router.get("/productsVarieties", async (req, res) => {
   const response = await Price.find();
   res.send(response);
+});
+router.get("/productsVarieties:id", async (req, res) => {
+  try {
+    const response = await Price.findById(req.params.id);
+    // if (!response) return res.status(404).res.send("Variety not found!");
+    res.send(response);
+  } catch (err) {
+    res.status(500).send(err.message);
+  }
 });
 router.delete("/productVarieties:id", async (req, res) => {
   try {
