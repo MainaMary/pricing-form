@@ -2,7 +2,7 @@ import { configureStore } from "@reduxjs/toolkit";
 import AddVarietySlice from "./features/AddVarietySlice";
 import { apiSlice } from "./features/VarietyApis";
 import CreateVarietySlice from "./features/CreateVarietySlice";
-import { setupListeners } from "@reduxjs/toolkit/dist/query";
+
 export const Store = configureStore({
   reducer: {
     addVariety: AddVarietySlice,

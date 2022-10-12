@@ -14,7 +14,7 @@ export const addVarieties = createAsyncThunk(
         "http://localhost:5000/productsVarieties",
         payload
       );
-      console.log(response?.data, "response data");
+
       return response?.data;
     } catch (error: any) {
       return rejectWithValue;
