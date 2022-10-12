@@ -4,6 +4,7 @@ import { RootState, Store } from "../store";
 import { useSelector } from "react-redux";
 import Button from "../components/Button";
 import { useNavigate } from "react-router-dom";
+import { useGetAllVarietiesQuery } from "../features/VarietyApis";
 interface Props {
   name: string;
   productId: string;
@@ -21,10 +22,12 @@ interface Iprops {
 }
 const Products = () => {
   const navigate = useNavigate();
+  //const { data, isLoading, error } = useGetAllVarietiesQuery();
+
   useEffect(() => {
     Store.dispatch(fetchVarieties());
   }, []);
-  const varietiesArr = useSelector((state: RootState) => state.variety);
+  const varietiesArr = useSelector((state: RootState) => state.addVariety);
   console.log(varietiesArr, "varieties");
 
   return (
@@ -44,9 +47,9 @@ const Products = () => {
             </tr>
           </thead>
           <tbody>
-            {varietiesArr.items.length &&
-              varietiesArr.status === "success" &&
-              varietiesArr.items.map((item: Props) => (
+            {varietiesArr?.items?.length &&
+              varietiesArr?.status === "success" &&
+              varietiesArr?.items?.map((item: Props) => (
                 <tr key={item.id}>
                   <td>{item.name}</td>
                   <td>{item.index}</td>
