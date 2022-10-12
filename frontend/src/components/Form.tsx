@@ -2,19 +2,22 @@ import React, { useState, useEffect, useId } from "react";
 import Label from "./Label";
 import Input from "./Input";
 import Button from "./Button";
-import { addVariety } from "../features/AddVarietySlice";
-import { useDispatch } from "react-redux";
+import { useAddNewVarietyMutation } from "../features/VarietyApis";
 import axios from "axios";
+import { addVarieties } from "../features/CreateVarietySlice";
+import { useDispatch } from "react-redux";
+import { FormType } from "../types";
 
 const Form = () => {
   const id = useId();
-  const [formValues, setFormValues] = useState({
+  const dispatch = useDispatch();
+  const [formValues, setFormValues] = useState<FormType>({
     name: "",
-    index: null,
-    tax: null,
-    discount: null,
-    subsidy: null,
-    date: new Date(),
+    index: 0,
+    tax: 0,
+    discount: 0,
+    subsidy: 0,
+    date: "",
     productId: "",
   });
   const [locations, setLocations] = useState([]);
@@ -24,16 +27,17 @@ const Form = () => {
     const { name, value } = e.target;
     setFormValues({ ...formValues, [name]: value, date: date, productId: id });
   };
+  //const { data: response, error } = useAddNewVarietyMutation();
   const handleSubmit = (e: any) => {
     e.preventDefault();
-    console.log(formValues);
-    console.log("submit");
+    console.log(formValues, "formValues");
+    dispatch(addVarieties(formValues));
     setFormValues({
       name: "",
-      index: null,
-      tax: null,
-      discount: null,
-      subsidy: null,
+      index: 0,
+      tax: 0,
+      discount: 0,
+      subsidy: 0,
       date: new Date(),
       productId: "",
     });
@@ -50,6 +54,7 @@ const Form = () => {
   useEffect(() => {
     fetchLocations();
   }, []);
+
   return (
     <div className=" bg-white shadow-lg m-auto flex mt-16 items-center justify-center max-w-3xl   rounded-md">
       <form onSubmit={handleSubmit} className="w-full px-6 py-9">

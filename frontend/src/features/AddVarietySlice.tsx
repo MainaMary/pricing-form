@@ -33,18 +33,14 @@ export const AddVarietySlice = createSlice({
   reducers: {
     addVariety: (state, action: PayloadAction<VProps>) => {},
   },
+
   extraReducers: (builder) => {
     builder
       .addCase(fetchVarieties.pending, (state, action) => {
         state.status = "loading";
       })
       .addCase(fetchVarieties.fulfilled, (state, action) => {
-        const newEntities = {};
         state.items = action.payload;
-        // action.payload.forEach((variety: any) => {
-        //   newEntities[variety.id] = variety;
-        // });
-        // state.items = newEntities;
         state.status = "success";
       })
       .addCase(fetchVarieties.rejected, (state, action) => {
