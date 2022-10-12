@@ -18,7 +18,7 @@ app.use(cors());
 // all routes start with  /productsVarieties
 app.use("/", routes);
 
-app.get("/", (req, res) => {
+app.get("/locations", (req, res) => {
   res.send(location);
 });
 
