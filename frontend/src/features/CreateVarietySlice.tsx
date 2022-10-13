@@ -2,7 +2,11 @@ import { createSlice, PayloadAction, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import { FormType } from "../types";
 
-const initialState = {
+interface SProps {
+  status: string;
+  items: any;
+}
+const initialState: SProps = {
   items: [],
   status: "",
 };
