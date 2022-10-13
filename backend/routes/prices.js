@@ -10,7 +10,7 @@ const router = express.Router();
 
 const handleValidation = (req) => {
   const schema = Joi.object({
-    name: Joi.string().required(),
+    name: Joi.string(),
     productId: Joi.string(),
     taxation: Joi.number(),
     discount: Joi.number(),
@@ -59,16 +59,16 @@ router.get("/productsVarieties", async (req, res) => {
   const response = await Price.find();
   res.send(response);
 });
-router.get("/productsVarieties:id", async (req, res) => {
+router.get("/productsVarieties/:id", async (req, res) => {
   try {
     const response = await Price.findById(req.params.id);
-    // if (!response) return res.status(404).res.send("Variety not found!");
+    if (!response) return res.status(404).res.send("Variety not found!");
     res.send(response);
   } catch (err) {
     res.status(500).send(err.message);
   }
 });
-router.delete("/productVarieties:id", async (req, res) => {
+router.delete("/productVarieties/:id", async (req, res) => {
   try {
     const deletedVariety = await findByIdAndDelete(req.params.id);
     if (!deletedVariety) return res.status(404).res.send("Variety not found");
@@ -78,7 +78,7 @@ router.delete("/productVarieties:id", async (req, res) => {
   }
 });
 
-router.put("/productVarieties:id", async (req, res) => {
+router.put("/productVarieties/:id", async (req, res) => {
   handleValidation(req.body);
   try {
     const variety = findById(req.body.params);
