@@ -1,13 +1,15 @@
 import React from "react";
 import MainRoutes from "./mainRoutes";
+import { QueryClientProvider, QueryClient } from "react-query";
 
 import "./App.css";
 
 function App() {
+  const queryClient = new QueryClient();
   return (
-    <div className="App">
+    <QueryClientProvider client={queryClient}>
       <MainRoutes />
-    </div>
+    </QueryClientProvider>
   );
 }
 
