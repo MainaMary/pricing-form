@@ -6,6 +6,7 @@ import { BrowserRouter } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import { Store } from "./store";
 import { Provider } from "react-redux";
+
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
     <BrowserRouter>
