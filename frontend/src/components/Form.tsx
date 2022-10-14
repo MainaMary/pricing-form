@@ -2,7 +2,6 @@ import React, { useState, useEffect, useId } from "react";
 import Label from "./Label";
 import Input from "./Input";
 import Button from "./Button";
-import { useAddNewVarietyMutation } from "../features/VarietyApis";
 import axios from "axios";
 import { addVarieties } from "../features/CreateVarietySlice";
 import { useDispatch } from "react-redux";
@@ -10,7 +9,7 @@ import { FormType, LocationType } from "../types";
 import { AppDispatch } from "../store";
 import { useSelector } from "react-redux";
 import { RootState } from "../store";
-import SingleVariety from "../pages/SingleVariety";
+import Wrapper from "./Wrapper";
 import { useNavigate } from "react-router-dom";
 
 const Form = () => {
@@ -100,7 +99,10 @@ const Form = () => {
         name: formValues.name,
       })
     );
-    navigate(`/singleVariety/${id}`);
+    if (arr.status === "success") {
+      return navigate(`/singleVariety/${id}`);
+    }
+
     setFormValues({
       name: "",
       index: 0,
@@ -124,13 +126,12 @@ const Form = () => {
   useEffect(() => {
     fetchLocations();
   }, []);
-  const varietyId: string = arr.status === "success" && arr.items._id;
 
   return (
     <>
-      <div className="bg-white flex shadow-lg m-auto mt-16 items-center justify-center max-w-3xl rounded-md">
+      <Wrapper>
         <form
-          onSubmit={(e: any) => handleSubmit(e, varietyId)}
+          onSubmit={(e: any) => handleSubmit(e, arr.items._id)}
           className="w-full px-6 py-9"
         >
           <h2 className="mb-4 text-gray-700 text-lg font-bold">Add charges</h2>
@@ -152,7 +153,7 @@ const Form = () => {
             {obj.price ? (
               <h2 className="my-2">Product Base price : {obj?.price}</h2>
             ) : (
-              "price not found"
+              ""
             )}
           </div>
           <div className="my-3">
@@ -209,7 +210,7 @@ const Form = () => {
             <Button>Get total</Button>
           </div>
         </form>
-      </div>
+      </Wrapper>
     </>
   );
 };
