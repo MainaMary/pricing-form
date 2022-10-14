@@ -2,6 +2,7 @@ import React from "react";
 import axios from "axios";
 import { useQuery } from "react-query";
 import { useParams } from "react-router-dom";
+import Wrapper from "../components/Wrapper";
 
 const SingleVariety = () => {
   const { id } = useParams();
@@ -17,13 +18,21 @@ const SingleVariety = () => {
   const { data, isLoading } = useQuery(["singleVariety"], getSingleVariety);
   console.log(data?.data, "data");
   return (
-    <div className="my-16">
-      <p>Name: {data?.data?.name}</p>
-      <p>Index: {data?.data?.index}</p>
-      <p>Tax: {data?.data?.tax ? data?.data?.tax : "Not recorded"}</p>
-      <p>Dsicount: {data?.data?.discount}</p>
-      <p>Subsidy:{data?.data?.subsidy}</p>
-    </div>
+    <Wrapper>
+      <div className="w-full">
+        {isLoading ? (
+          <p>Loading...</p>
+        ) : (
+          <div className="py-4 px-5">
+            <p>Name: {data?.data?.name}</p>
+            <p>Index: {data?.data?.index}</p>
+            <p>Tax: {data?.data?.tax ? data?.data?.tax : "Not recorded"}</p>
+            <p>Dsicount: {data?.data?.discount}</p>
+            <p>Subsidy:{data?.data?.subsidy}</p>
+          </div>
+        )}
+      </div>
+    </Wrapper>
   );
 };
 
