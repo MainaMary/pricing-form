@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-import { varietyUrl } from "../apis";
+
 interface VProps {
   name: string;
   index: number;
@@ -20,7 +20,7 @@ export const fetchVarieties = createAsyncThunk(
         "http://localhost:5000/productsVarieties"
       );
 
-      return response?.data;
+      return response?.data?.slice(2, 10);
     } catch (error: any) {
       console.log(error.messaage);
     }
