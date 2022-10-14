@@ -8,3 +8,9 @@ export type FormType = {
   productId: string;
   total?: number;
 };
+
+export type LocationType = {
+  site?: string;
+  price?: number;
+  id?: number;
+};
