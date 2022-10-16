@@ -10,17 +10,26 @@ import { AppDispatch } from "../store";
 import { useSelector } from "react-redux";
 import { RootState } from "../store";
 import Wrapper from "./Wrapper";
+import Error from "./Error";
 import { useNavigate } from "react-router-dom";
+import { hasValue } from "../tools";
 
 const Form = () => {
   const id = useId();
   const navigate = useNavigate();
+  const [loading, setLoading] = useState<boolean>(true);
+  const [locationErr, setLocationErr] = useState("");
+  const [indexErr, setIndexErr] = useState("");
+  const [taxErr, setTaxErr] = useState("");
+  const [discountErr, setDisocuntErr] = useState("");
+  const [subsidyErr, setSubsidyErr] = useState("");
+  const [nameErr, setNameErr] = useState("");
   const dispatch = useDispatch<AppDispatch>();
   const arr = useSelector((state: RootState) => state.createVariety);
   const [formValues, setFormValues] = useState<FormType>({
     name: "",
     index: 0,
-    tax: 0,
+    taxation: 0,
     discount: 0,
     subsidy: 0,
     date: "",
@@ -29,7 +38,7 @@ const Form = () => {
   });
   const [locations, setLocations] = useState([]);
   const [selectVal, setSelectVal] = useState("");
-  const { name, index, tax, discount, subsidy, date, total } = formValues;
+  const { name, index, taxation, discount, subsidy } = formValues;
   let obj: LocationType = {};
   let taxTotal: any,
     subsidyTotal: any,
@@ -43,10 +52,10 @@ const Form = () => {
     discountTotal: any,
     subsidyTotal: any
   ) => {
-    if (obj?.price || index || tax || subsidy || discount) {
+    if (obj?.price || index || taxation || subsidy || discount) {
       indexTotal = obj?.price && obj?.price * index;
 
-      taxTotal = obj.price && (obj.price * tax) / 100;
+      taxTotal = obj.price && (obj.price * taxation) / 100;
       discountTotal = discount && obj?.price && (obj.price * discount) / 100;
       subsidyTotal = subsidy && obj?.price && (obj.price * subsidy) / 100;
     }
@@ -54,7 +63,7 @@ const Form = () => {
     totalAmount = indexTotal + taxTotal - discountTotal - subsidyTotal;
     const data = {
       index: indexTotal,
-      tax: taxTotal,
+      taxation: taxTotal,
       discount: discountTotal,
       subsidy: subsidyTotal,
       total: totalAmount,
@@ -62,7 +71,7 @@ const Form = () => {
 
     return data;
   };
-  console.log(arr, "array");
+
   const handleCost = () => {
     locations.map((item: any) => {
       if (selectVal == item.id.toString()) {
@@ -80,17 +89,72 @@ const Form = () => {
 
       productId: id,
     });
+    if (name) {
+      setNameErr("");
+    }
+    if (index) {
+      setIndexErr("");
+    }
+    if (discount) {
+      setDisocuntErr("");
+    }
+    if (subsidy) {
+      setSubsidyErr("");
+    }
+    if (taxation) {
+      setTaxErr("");
+    }
+  };
+  const handleValidation = (e: any) => {
+    const errorExists = {
+      name: false,
+      tax: false,
+      discount: false,
+      subsidy: false,
+      index: false,
+      loc: false,
+    };
+    if (!name) {
+      errorExists.name = true;
+      setNameErr("Name is required");
+    }
+    if (!index) {
+      errorExists.index = true;
+      setIndexErr("Index is required");
+    }
+    if (!taxation) {
+      errorExists.tax = true;
+      setTaxErr("Tax is required");
+    }
+    if (!discount) {
+      errorExists.discount = true;
+      setDisocuntErr("Discount is required");
+    }
+    if (!subsidy) {
+      errorExists.subsidy = true;
+      setSubsidyErr("Subsidy is required");
+    }
+    if (!selectVal) {
+      errorExists.loc = true;
+      setLocationErr("Choose location");
+    }
+    const hasError = hasValue(errorExists);
+
+    if (hasError) {
+      return;
+    }
   };
 
   const handleSubmit = (e: any, id: string) => {
     e.preventDefault();
+    handleValidation(e);
     const cloneObj = handleTotal(
       indexTotal,
       taxTotal,
       discountTotal,
       subsidyTotal
     );
-    console.log({ ...cloneObj });
+
     dispatch(
       addVarieties({
         ...cloneObj,
@@ -99,20 +163,32 @@ const Form = () => {
         name: formValues.name,
       })
     );
-    if (arr.status === "success") {
-      return navigate(`/singleVariety/${id}`);
+    console.log(arr.items);
+
+    if (
+      arr.status === "success" &&
+      name &&
+      index &&
+      subsidy &&
+      taxation &&
+      discount
+    ) {
+      setLoading(false);
+      setTimeout(() => {
+        navigate(`/singleVariety/${id}`);
+      }, 500);
     }
 
-    setFormValues({
-      name: "",
-      index: 0,
-      tax: 0,
-      discount: 0,
-      subsidy: 0,
-      date: new Date(),
-      productId: "",
-      total: 0,
-    });
+    // setFormValues({
+    //   name: "",
+    //   index: 0,
+    //   tax: 0,
+    //   discount: 0,
+    //   subsidy: 0,
+    //   date: new Date(),
+    //   productId: "",
+    //   total: 0,
+    // });
   };
 
   const fetchLocations = async () => {
@@ -141,6 +217,7 @@ const Form = () => {
               value={selectVal}
               onChange={(e: any) => {
                 setSelectVal(e.target.value);
+                setLocationErr("");
               }}
               className="shadow border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             >
@@ -150,6 +227,7 @@ const Form = () => {
                 </option>
               ))}
             </select>
+            <Error>{locationErr ? locationErr : ""}</Error>
             {obj.price ? (
               <h2 className="my-2">Product Base price : {obj?.price}</h2>
             ) : (
@@ -163,8 +241,9 @@ const Form = () => {
               name="name"
               onChange={handleChange}
               placeholder="eg Mac coffee"
-              value={name}
+              value={name.trim()}
             />
+            <Error>{nameErr ? nameErr : ""}</Error>
           </div>
           <div className="my-3">
             <Label>Index</Label>
@@ -175,16 +254,18 @@ const Form = () => {
               placeholder="eg 2"
               value={index}
             />
+            <Error>{indexErr ? indexErr : ""}</Error>
           </div>
           <div className="my-3">
             <Label>Taxation rate</Label>
             <Input
               type="number"
-              name="tax"
+              name="taxation"
               onChange={handleChange}
               placeholder="eg 10%"
-              value={tax}
+              value={taxation}
             />
+            <Error>{taxErr ? taxErr : ""}</Error>
           </div>
           <div className="my-3">
             <Label>Discount</Label>
@@ -192,9 +273,10 @@ const Form = () => {
               type="number"
               name="discount"
               onChange={handleChange}
-              placeholder="eg 200"
+              placeholder="eg 5%"
               value={discount}
             />
+            <Error>{discountErr ? discountErr : ""}</Error>
           </div>
           <div className="my-3">
             <Label>Subsidy</Label>
@@ -202,9 +284,10 @@ const Form = () => {
               type="number"
               name="subsidy"
               onChange={handleChange}
-              placeholder="eg 100"
+              placeholder="eg 8%"
               value={subsidy}
             />
+            <Error>{subsidyErr ? subsidyErr : ""}</Error>
           </div>
           <div className="mt-3 flex w-full justify-between">
             <Button>Get total</Button>

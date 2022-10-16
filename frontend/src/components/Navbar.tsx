@@ -12,11 +12,11 @@ const Navbar = () => {
 
   return (
     <nav className=" text-white px-7 h-16 items-center shadow-md bg-blue-500 w-full fixed top-0 left-0 flex justify-between">
-      <h2 className="text-xl">Price form</h2>
+      <h2 className="text-xl font-bold">Price form</h2>
       <div className="text-xl">
         <button
           onClick={handleClick}
-          className="bg-white hover:text-blue-600 text-blue-600 font-400 py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+          className="bg-white hover:text-blue-600 text-blue-600 py-2 px-4 rounded focus:outline-none focus:shadow-outline"
         >
           View product list
         </button>
