@@ -6,6 +6,7 @@ import Button from "../components/Button";
 import { useNavigate } from "react-router-dom";
 import { commafy, formatDateTo } from "../tools";
 import axios from "axios";
+import Modal from "../components/Modal";
 import { useGetAllVarietiesQuery } from "../features/VarietyApis";
 interface Props {
   name: string;
@@ -44,8 +45,6 @@ const Products = () => {
       return response;
     }, 500);
   };
-  console.log(varietiesArr?.items);
-
   return (
     <div className=" md:mx-32">
       {varietiesArr.status === "Loading..." ? (
@@ -113,11 +112,12 @@ const Products = () => {
                         <td className=" p-3 text-sm text-gray-700">
                           {item.date ? formatDateTo(item.date) : "Not recorded"}
                         </td>
-                        <td className="flex justify-between border-slate-700">
+                        <td className="crsor-pointer flex justify-between border-slate-700">
                           <span
                             onClick={() => {
                               setId(item._id);
-                              handleDelete();
+                              console.log("hello world");
+                              setOpenModal(true);
                             }}
                             className="w-20  h-7 felx items-center text-center  mx-3 text-xs font-medium uppercase text-white rounded-lg bg-blue-500"
                           >
@@ -177,6 +177,7 @@ const Products = () => {
         ))}
       </div>
       <Button onClick={() => navigate("/")}>Add variety</Button>
+      <Modal openModal={openModal} handleModal={handleModal} />
     </div>
   );
 };
