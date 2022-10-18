@@ -6,7 +6,7 @@ const Product = require("./models/product");
 const routes = require("./routes/prices");
 require("dotenv").config();
 const app = express();
-const port = 5000 || process.env.PORT;
+const port = process.env.PORT || 5000;
 const connection_string = process.env.CONNECTION_STRING;
 const location = require("./location");
 
