@@ -117,7 +117,7 @@ const Products = () => {
                             onClick={() => {
                               setId(item._id);
                               console.log("hello world");
-                              setOpenModal(true);
+                              handleDelete();
                             }}
                             className="w-20  h-7 felx items-center text-center  mx-3 text-xs font-medium uppercase text-white rounded-lg bg-blue-500"
                           >

@@ -165,18 +165,11 @@ const Form = () => {
     );
     console.log(arr.items);
 
-    if (
-      arr.status === "success" &&
-      name &&
-      index &&
-      subsidy &&
-      taxation &&
-      discount
-    ) {
+    if (arr.status === "success") {
       setLoading(false);
       setTimeout(() => {
         navigate(`/singleVariety/${id}`);
-      }, 500);
+      }, 300);
     }
 
     // setFormValues({
