@@ -165,13 +165,6 @@ const Form = () => {
     );
     console.log(arr.items);
 
-    if (arr.status === "success") {
-      setLoading(false);
-      setTimeout(() => {
-        navigate(`/singleVariety/${id}`);
-      }, 300);
-    }
-
     // setFormValues({
     //   name: "",
     //   index: 0,
@@ -183,10 +176,17 @@ const Form = () => {
     //   total: 0,
     // });
   };
-
+  if (arr.status === "success") {
+    setLoading(false);
+    setTimeout(() => {
+      navigate(`/singleVariety/${arr.items._id}`);
+    }, 300);
+  }
   const fetchLocations = async () => {
     try {
-      const response = await axios.get("http://localhost:5000/locations");
+      const response = await axios.get(
+        "https://pricing-form.herokuapp.com/locations"
+      );
       setLocations(response.data);
     } catch (err: any) {
       console.log(err.message);
@@ -214,6 +214,9 @@ const Form = () => {
               }}
               className="shadow border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             >
+              <option value="" selected disabled>
+                Select location
+              </option>
               {locations?.map((location: any) => (
                 <option key={location.id} value={location.id}>
                   {location.site}
