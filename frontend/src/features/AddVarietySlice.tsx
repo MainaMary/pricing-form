@@ -17,7 +17,7 @@ export const fetchVarieties = createAsyncThunk(
   async () => {
     try {
       const response = await axios.get(
-        "http://localhost:5000/productsVarieties"
+        "https://pricing-form.herokuapp.com/productsVarieties"
       );
 
       return response?.data?.slice(2, 10);
