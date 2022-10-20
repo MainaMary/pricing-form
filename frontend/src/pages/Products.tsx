@@ -136,11 +136,19 @@ const Products = () => {
       )}
       <div className=" px-8 grid grid-cols-1 gap-4 md:hidden">
         {varietiesArr.items.map((item: Props) => (
-          <div className="bg-white p-4 rounded-lg shadow">
+          <div className="bg-white p-4 rounded-lg shadow" key={item._id}>
             <div className="flex justify-between w-full bg-white">
               <p>{item.name}</p>
               <p>{item.date ? formatDateTo(item.date) : "Not recorded"}</p>
-              <p>x</p>
+              <p
+                onClick={() => {
+                  setId(item._id);
+                  console.log("hello world");
+                  handleDelete();
+                }}
+              >
+                x
+              </p>
             </div>
             <div className="">
               <div className="my-3 flex justify-between w-3/5">
