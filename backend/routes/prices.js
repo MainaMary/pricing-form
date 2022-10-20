@@ -71,7 +71,7 @@ router.get("/productsVarieties/:id", async (req, res) => {
 router.delete("/productsVarieties/:id", async (req, res) => {
   try {
     const deletedVariety = await Price.findByIdAndRemove(req.params.id.trim());
-    // if (!deletedVariety) return res.status(404).res.send("Variety not found");
+    if (!deletedVariety) return res.status(404).send("Variety not found");
     res.send(deletedVariety);
   } catch (error) {
     res.status(500).send(error.message);
