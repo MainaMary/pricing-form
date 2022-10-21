@@ -14,3 +14,7 @@ export type LocationType = {
   price?: number;
   id?: number;
 };
+export type SnackbarProps = {
+  title: string;
+  content: string;
+};
