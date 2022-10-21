@@ -8,6 +8,8 @@ import { commafy, formatDateTo } from "../tools";
 import axios from "axios";
 import Modal from "../components/Modal";
 import { useGetAllVarietiesQuery } from "../features/VarietyApis";
+import CustomAlert from "../components/CustomAlert";
+import { SnackbarProps } from "../types";
 interface Props {
   name: string;
   productId: string;
@@ -26,6 +28,11 @@ interface Iprops {
 const Products = () => {
   const navigate = useNavigate();
   // const [id, setId] = useState<string | undefined>();
+  const [snackbar, setSnackbar] = useState<SnackbarProps>({
+    title: "",
+    content: "",
+  });
+  const [openSnack, setOpenSnack] = useState<boolean>(false);
   const [openModal, setOpenModal] = useState(false);
   //const { data, isLoading, error } = useGetAllVarietiesQuery();
   const handleModal = () => {
@@ -39,20 +46,54 @@ const Products = () => {
   const handleDelete = async (id: string | undefined) => {
     setTimeout(() => {
       console.log(id, "id");
-      const response = axios.delete(
-        `http://localhost:5000/productsVarieties/${id}`
-      );
-      console.log(response);
+      const response = axios
+        .delete(`http://localhost:5000/productsVarieties/${id}`)
+        .then((res) => {
+          if (res.statusText === "OK") {
+            return setSnackbar({
+              title: "Success",
+              content: "Variety deleted successfully",
+            });
+            setOpenSnack(true);
+          }
+        });
+
       return response;
     }, 500);
   };
-
+  const handleAlert = (snackbar: SnackbarProps) => {
+    const { title, content } = snackbar;
+    return (
+      <CustomAlert title="Success" content="Variety deleted successfully" />
+    );
+  };
+  const obj = {
+    id: 1,
+    name: "hey",
+  };
+  const arr = [
+    { id: 1, name: "hey" },
+    {
+      id: 1,
+      name: "How are you",
+    },
+  ];
+  const objectExists = (obj: any, arr: any[]) => {
+    for (let i = 0; i < arr.length; i++) {
+      if (arr[i] === obj) {
+        return true;
+      }
+    }
+    return false;
+  };
+  objectExists(obj, arr);
   return (
     <div className=" md:mx-32">
       {varietiesArr.status === "Loading..." ? (
         <p>Loading...</p>
       ) : (
         <>
+          <div>{handleAlert(snackbar)}</div>
           {varietiesArr.items.length && varietiesArr.status === "success" ? (
             <div className="hidden md:block">
               <table className="md:w-full border-solid mt-20 mb-10 border-collapse border border-slate-500  ">
