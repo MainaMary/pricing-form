@@ -20,7 +20,7 @@ export const fetchVarieties = createAsyncThunk(
         "https://pricing-form.herokuapp.com/productsVarieties"
       );
 
-      return response?.data?.slice(2, 10);
+      return response?.data;
     } catch (error: any) {
       console.log(error.messaage);
     }
