@@ -145,7 +145,7 @@ const Form = () => {
     }
   };
 
-  const handleSubmit = (e: any, id: string) => {
+  const handleSubmit = (e: React.SyntheticEvent, id: string) => {
     e.preventDefault();
     handleValidation(e);
     const cloneObj = handleTotal(
