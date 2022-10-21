@@ -25,7 +25,7 @@ interface Iprops {
 }
 const Products = () => {
   const navigate = useNavigate();
-  const [id, setId] = useState<string | undefined>();
+  // const [id, setId] = useState<string | undefined>();
   const [openModal, setOpenModal] = useState(false);
   //const { data, isLoading, error } = useGetAllVarietiesQuery();
   const handleModal = () => {
@@ -36,8 +36,9 @@ const Products = () => {
   }, []);
   const varietiesArr = useSelector((state: RootState) => state.addVariety);
 
-  const handleDelete = async () => {
+  const handleDelete = async (id: string | undefined) => {
     setTimeout(() => {
+      console.log(id, "id");
       const response = axios.delete(
         `http://localhost:5000/productsVarieties/${id}`
       );
@@ -45,6 +46,7 @@ const Products = () => {
       return response;
     }, 500);
   };
+
   return (
     <div className=" md:mx-32">
       {varietiesArr.status === "Loading..." ? (
@@ -115,9 +117,8 @@ const Products = () => {
                         <td className="crsor-pointer flex justify-between border-slate-700">
                           <span
                             onClick={() => {
-                              setId(item._id);
                               console.log("hello world");
-                              handleDelete();
+                              handleDelete(item._id);
                             }}
                             className="w-20  h-7 felx items-center text-center  mx-3 text-xs font-medium uppercase text-white rounded-lg bg-blue-500"
                           >
@@ -142,9 +143,9 @@ const Products = () => {
               <p>{item.date ? formatDateTo(item.date) : "Not recorded"}</p>
               <p
                 onClick={() => {
-                  setId(item._id);
+                  // setId(item._id);
                   console.log("hello world");
-                  handleDelete();
+                  handleDelete(item._id);
                 }}
               >
                 x
