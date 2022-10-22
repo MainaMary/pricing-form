@@ -38,6 +38,7 @@ const Form = () => {
   });
   const [locations, setLocations] = useState([]);
   const [selectVal, setSelectVal] = useState("");
+  const [saveChanges, setSaveChanges] = useState<boolean>(false);
   const { name, index, taxation, discount, subsidy } = formValues;
   let obj: LocationType = {};
   let taxTotal: any,
@@ -82,6 +83,10 @@ const Form = () => {
   handleCost();
   const handleChange = (e: any) => {
     const { name, value } = e.target;
+    console.log(value, "value");
+    if (value[0] === "-") {
+      return;
+    }
 
     setFormValues({
       ...formValues,
@@ -143,6 +148,7 @@ const Form = () => {
     if (hasError) {
       return;
     }
+    setSaveChanges(true);
   };
 
   const handleSubmit = (e: React.SyntheticEvent, id: string) => {
@@ -163,7 +169,13 @@ const Form = () => {
         name: formValues.name,
       })
     );
-    console.log(arr.items);
+
+    if (arr.status === "success") {
+      setSaveChanges(false);
+      setTimeout(() => {
+        navigate(`/singleVariety/${arr.items._id}`);
+      }, 300);
+    }
 
     // setFormValues({
     //   name: "",
@@ -176,12 +188,20 @@ const Form = () => {
     //   total: 0,
     // });
   };
-  if (arr.status === "success") {
-    setLoading(false);
-    setTimeout(() => {
-      navigate(`/singleVariety/${arr.items._id}`);
-    }, 300);
-  }
+  const handleChanges = () => {
+    return (
+      <div className="flex space-between w-auto">
+        {arr.status === "loading" ? (
+          <div className="mx-1 my-0">
+            <p>Loading..</p>
+          </div>
+        ) : (
+          <> Save changes</>
+        )}
+      </div>
+    );
+  };
+
   const fetchLocations = async () => {
     try {
       const response = await axios.get(
@@ -286,7 +306,7 @@ const Form = () => {
             <Error>{subsidyErr ? subsidyErr : ""}</Error>
           </div>
           <div className="mt-3 flex w-full justify-between">
-            <Button>Get total</Button>
+            <Button disabled={saveChanges}>{handleChanges()}</Button>
           </div>
         </form>
       </Wrapper>
