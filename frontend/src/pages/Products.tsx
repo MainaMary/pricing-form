@@ -8,8 +8,8 @@ import { commafy, formatDateTo } from "../tools";
 import axios from "axios";
 import Modal from "../components/Modal";
 import { useGetAllVarietiesQuery } from "../features/VarietyApis";
-import CustomAlert from "../components/CustomAlert";
 import { SnackbarProps } from "../types";
+import CustomAlert from "../components/CustomAlert";
 interface Props {
   name: string;
   productId: string;
@@ -31,9 +31,11 @@ const Products = () => {
   const [snackbar, setSnackbar] = useState<SnackbarProps>({
     title: "",
     content: "",
+    severity: "",
   });
   const [openSnack, setOpenSnack] = useState<boolean>(false);
   const [openModal, setOpenModal] = useState(false);
+
   //const { data, isLoading, error } = useGetAllVarietiesQuery();
   const handleModal = () => {
     setOpenModal((prev) => !prev);
@@ -50,9 +52,10 @@ const Products = () => {
         .delete(`http://localhost:5000/productsVarieties/${id}`)
         .then((res) => {
           if (res.statusText === "OK") {
-            return setSnackbar({
+            setSnackbar({
               title: "Success",
               content: "Variety deleted successfully",
+              severity: "success",
             });
             setOpenSnack(true);
           }
@@ -62,9 +65,15 @@ const Products = () => {
     }, 500);
   };
   const handleAlert = (snackbar: SnackbarProps) => {
-    const { title, content } = snackbar;
+    const { title, content, severity } = snackbar;
     return (
-      <CustomAlert title="Success" content="Variety deleted successfully" />
+      <CustomAlert
+        title={title}
+        content={content}
+        severity={severity}
+        openSnack={openSnack}
+        setOpenSnack={setOpenSnack}
+      />
     );
   };
   const obj = {
@@ -93,7 +102,7 @@ const Products = () => {
         <p>Loading...</p>
       ) : (
         <>
-          <div>{handleAlert(snackbar)}</div>
+          <div>{openSnack && handleAlert(snackbar)}</div>
           {varietiesArr.items.length && varietiesArr.status === "success" ? (
             <div className="hidden md:block">
               <table className="md:w-full border-solid mt-20 mb-10 border-collapse border border-slate-500  ">
@@ -161,7 +170,7 @@ const Products = () => {
                               console.log("hello world");
                               handleDelete(item._id);
                             }}
-                            className="w-20  h-7 felx items-center text-center  mx-3 text-xs font-medium uppercase text-white rounded-lg bg-blue-500"
+                            className="w-20  h-7 flex text-white font-bold justify-center  items-center text-center  mx-3 text-xs  uppercase  rounded-lg bg-blue-500"
                           >
                             Delete
                           </span>
