@@ -17,4 +17,5 @@ export type LocationType = {
 export type SnackbarProps = {
   title: string;
   content: string;
+  severity: any;
 };
