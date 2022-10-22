@@ -1,6 +1,6 @@
 import React from "react";
 interface Props {
-  children: string;
+  children: string | JSX.Element;
   onClick?: (x: any) => void;
   className?: string;
   disabled?: boolean;
