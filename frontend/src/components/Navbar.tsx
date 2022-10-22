@@ -11,7 +11,7 @@ const Navbar = () => {
   };
 
   return (
-    <nav className=" text-white px-7 h-16 items-center shadow-md bg-blue-500 w-full fixed top-0 left-0 flex justify-between">
+    <nav className=" text-white px-7 h-16 items-center shadow-md bg-blue-500 w-full flex justify-between">
       <h2 className="text-xl font-bold">Price form</h2>
       <div className="text-xl">
         <button
