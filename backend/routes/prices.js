@@ -2,7 +2,7 @@ const Price = require("../models/priceForm");
 const express = require("express");
 const Joi = require("joi");
 const {
-  findByIdAndDelete,
+  findByIdAndRemove,
   findById,
   findByIdAndUpdate,
 } = require("../models/priceForm");
@@ -56,8 +56,8 @@ router.post("/productsVarieties", async (req, res) => {
 });
 
 router.get("/productsVarieties", async (req, res) => {
-  const response = await Price.find();
-  res.send(response);
+  const response = await Price.find().sort({ createdAt: "descending" });
+  res.status(200).send(response);
 });
 router.get("/productsVarieties/:id", async (req, res) => {
   try {
@@ -77,29 +77,44 @@ router.delete("/productsVarieties/:id", async (req, res) => {
     res.status(500).send(error.message);
   }
 });
-
-router.put("/productVarieties/:id", async (req, res) => {
-  handleValidation(req.body);
+router.put("/productsVarieties/:id", async (req, res) => {
   try {
-    const variety = findById(req.body.params);
-    if (!variety) return res.status(404).send("Variety not found");
-    const updateVariety = await findByIdAndUpdate(
-      req.body.params,
+    const updatedProduct = await Price.findByIdAndUpdate(
+      req.params.id,
       {
-        name,
-        productId,
-        index,
-        taxation,
-        discount,
-        subsidy,
-        total,
-        date,
+        $set: req.body,
       },
       { new: true }
     );
-    res.send(updateVariety);
-  } catch (error) {
-    res.status(500).send(error.message);
+    console.log(updatedProduct);
+    res.status(200).send(updatedProduct);
+  } catch (err) {
+    res.status(500).send(err.message);
   }
 });
+// router.put("/productVarieties/:id", async (req, res) => {
+//   handleValidation(req.body);
+//   try {
+//     const variety = await findById(req.params.id);
+//     if (!variety) return res.status(404).send("Variety not found");
+//     const updateVariety = await findByIdAndUpdate(
+//       req.params.id,
+//       {
+//         name,
+//         productId,
+//         index,
+//         taxation,
+//         discount,
+//         subsidy,
+//         total,
+//         date,
+//       },
+//       { new: true }
+//     );
+//     res.send(updateVariety);
+//   } catch (error) {
+//     res.status(500).send(error.message);
+//     console.log(error.message);
+//   }
+// });
 module.exports = router;
