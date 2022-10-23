@@ -306,7 +306,7 @@ const Form = () => {
             <Error>{subsidyErr ? subsidyErr : ""}</Error>
           </div>
           <div className="mt-3 flex w-full justify-between">
-            <Button disabled={saveChanges}>{handleChanges()}</Button>
+            <Button>{handleChanges()}</Button>
           </div>
         </form>
       </Wrapper>
