@@ -27,7 +27,7 @@ interface Iprops {
 }
 const Products = () => {
   const navigate = useNavigate();
-  // const [id, setId] = useState<string | undefined>();
+  //const [id, setId] = useState<string | undefined>();
   const [snackbar, setSnackbar] = useState<SnackbarProps>({
     title: "",
     content: "",
@@ -35,11 +35,14 @@ const Products = () => {
   });
   const [openSnack, setOpenSnack] = useState<boolean>(false);
   const [openModal, setOpenModal] = useState(false);
+  const [edit, setEdit] = useState<boolean>(false);
 
   //const { data, isLoading, error } = useGetAllVarietiesQuery();
   const handleModal = () => {
     setOpenModal((prev) => !prev);
+    console.log("open modal");
   };
+  console.log(openModal);
   useEffect(() => {
     Store.dispatch(fetchVarieties());
   }, []);
@@ -59,6 +62,7 @@ const Products = () => {
             });
             setOpenSnack(true);
           }
+          Store.dispatch(fetchVarieties());
         });
 
       return response;
@@ -103,7 +107,7 @@ const Products = () => {
       ) : (
         <>
           <div>{openSnack && handleAlert(snackbar)}</div>
-          {varietiesArr.items.length && varietiesArr.status === "success" ? (
+          {varietiesArr.items.length ? (
             <div className="hidden md:block">
               <table className="md:w-full border-solid mt-20 mb-10 border-collapse border border-slate-500  ">
                 <thead>
@@ -166,8 +170,14 @@ const Products = () => {
                         </td>
                         <td className="crsor-pointer flex justify-between border-slate-700">
                           <span
+                            onClick={handleModal}
+                            className="w-20  h-7 flex text-white font-bold justify-center  items-center text-center  mx-3 text-xs  uppercase  rounded-lg bg-blue-500"
+                          >
+                            Edit
+                          </span>
+                          <span
                             onClick={() => {
-                              console.log("hello world");
+                              // setId(item._id);
                               handleDelete(item._id);
                             }}
                             className="w-20  h-7 flex text-white font-bold justify-center  items-center text-center  mx-3 text-xs  uppercase  rounded-lg bg-blue-500"
@@ -194,7 +204,7 @@ const Products = () => {
               <p
                 onClick={() => {
                   // setId(item._id);
-                  console.log("hello world");
+
                   handleDelete(item._id);
                 }}
               >
