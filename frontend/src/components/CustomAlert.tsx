@@ -29,11 +29,11 @@ const CustomAlert = ({
   }, []);
   return (
     <div
-      className="bg-red-100 border border-green-400 text-green-700 px-4 py-3 rounded relative top-10"
+      className="bg-red-100 border border-green-400 text-green-700 px-4 py-3 rounded relative top-10 w-2/4 m-auto "
       role="alert"
     >
       <strong className="font-bold">{title}</strong>
-      <span className="block sm:inline">{content}</span>
+      <p className="block sm:inline">{content}</p>
       <div onClick={handleClose}>
         <span className="absolute top-0 bottom-0 right-0 px-4 py-3">
           <svg
