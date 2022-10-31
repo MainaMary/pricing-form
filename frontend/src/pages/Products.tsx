@@ -8,7 +8,7 @@ import { commafy, formatDateTo } from "../tools";
 import axios from "axios";
 import Modal from "../components/Modal";
 import { useGetAllVarietiesQuery } from "../features/VarietyApis";
-import { SnackbarProps } from "../types";
+import { FormType, SnackbarProps } from "../types";
 import CustomAlert from "../components/CustomAlert";
 interface Props {
   name: string;
@@ -33,9 +33,11 @@ const Products = () => {
     content: "",
     severity: "",
   });
+  const [itemInfo, setItemInfo] = useState({});
   const [openSnack, setOpenSnack] = useState<boolean>(false);
   const [openModal, setOpenModal] = useState(false);
   const [edit, setEdit] = useState<boolean>(false);
+  const [editData, setEditData] = useState("");
 
   //const { data, isLoading, error } = useGetAllVarietiesQuery();
   const handleModal = () => {
@@ -68,6 +70,14 @@ const Products = () => {
       return response;
     }, 500);
   };
+  let itemDetails = {};
+  const handleEdit = (item: FormType) => {
+    itemDetails = Object.assign({}, item);
+
+    //axios.put(`http://localhost:5000/productsVarieties/${item._id}`);
+    handleModal();
+  };
+
   const handleAlert = (snackbar: SnackbarProps) => {
     const { title, content, severity } = snackbar;
     return (
@@ -100,6 +110,7 @@ const Products = () => {
     return false;
   };
   objectExists(obj, arr);
+
   return (
     <div className=" md:mx-32">
       {varietiesArr.status === "Loading..." ? (
@@ -170,7 +181,9 @@ const Products = () => {
                         </td>
                         <td className="crsor-pointer flex justify-between border-slate-700">
                           <span
-                            onClick={handleModal}
+                            onClick={() => {
+                              handleEdit(item), setItemInfo(item);
+                            }}
                             className="w-20  h-7 flex text-white font-bold justify-center  items-center text-center  mx-3 text-xs  uppercase  rounded-lg bg-blue-500"
                           >
                             Edit
@@ -246,7 +259,11 @@ const Products = () => {
         ))}
       </div>
       <Button onClick={() => navigate("/")}>Add variety</Button>
-      <Modal openModal={openModal} handleModal={handleModal} />
+      <Modal
+        openModal={openModal}
+        handleModal={handleModal}
+        itemInfo={itemInfo}
+      />
     </div>
   );
 };

@@ -7,6 +7,7 @@ export type FormType = {
   date: any;
   productId: string;
   total?: number;
+  _id?: string;
 };
 
 export type LocationType = {
