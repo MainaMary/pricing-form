@@ -27,7 +27,6 @@ interface Iprops {
 }
 const Products = () => {
   const navigate = useNavigate();
-  //const [id, setId] = useState<string | undefined>();
   const [snackbar, setSnackbar] = useState<SnackbarProps>({
     title: "",
     content: "",
@@ -36,10 +35,8 @@ const Products = () => {
   const [itemInfo, setItemInfo] = useState({});
   const [openSnack, setOpenSnack] = useState<boolean>(false);
   const [openModal, setOpenModal] = useState(false);
-  const [edit, setEdit] = useState<boolean>(false);
-  const [editData, setEditData] = useState("");
 
-  //const { data, isLoading, error } = useGetAllVarietiesQuery();
+  //const { data, isLoading, error } = useGetAllVarietiesQuery('products);
   const handleModal = () => {
     setOpenModal((prev) => !prev);
     console.log("open modal");
@@ -54,7 +51,7 @@ const Products = () => {
     setTimeout(() => {
       console.log(id, "id");
       const response = axios
-        .delete(`http://localhost:5000/productsVarieties/${id}`)
+        .delete(`https://pricing-form.herokuapp.com/productsVarieties/${id}`)
         .then((res) => {
           if (res.statusText === "OK") {
             setSnackbar({

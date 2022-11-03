@@ -66,7 +66,10 @@ const Modal = ({ openModal, handleModal, itemInfo }: Props) => {
       date: Date.now(),
     };
     axios
-      .put(`http://localhost:5000/productsVarieties/${itemInfo._id}`, payload)
+      .put(
+        `https://pricing-form.herokuapp.com/productsVarieties/${itemInfo._id}`,
+        payload
+      )
       .then((res) => {
         if (res.statusText === "OK") {
           setSnackbar({
