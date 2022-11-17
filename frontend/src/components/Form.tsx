@@ -221,7 +221,7 @@ const Form = () => {
       <Wrapper>
         <form
           onSubmit={(e: any) => handleSubmit(e, arr.items._id)}
-          className="w-full px-6 py-9"
+          className="w-full px-6 py-4 "
         >
           <h2 className="mb-4 text-gray-700 text-lg font-bold">Add charges</h2>
           <div className="mb-3">

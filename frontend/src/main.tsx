@@ -12,7 +12,12 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
     <BrowserRouter>
       <Provider store={Store}>
         <Navbar />
-        <App />
+        <div
+          className="pt-6 h-screen-height pb-12"
+          style={{ background: "#ECF0F3" }}
+        >
+          <App />
+        </div>
       </Provider>
     </BrowserRouter>
   </React.StrictMode>

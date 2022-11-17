@@ -12,30 +12,26 @@ const Navbar = () => {
 
   return (
     <nav className=" text-white px-7 h-16 items-center shadow-md bg-blue-500 w-full flex justify-between">
-      <h2 className="text-xl font-bold">Price form</h2>
-      <div className="text-xl">
+      <h2 className="text-xl font-bold">Price setter</h2>
+      <div className="flex w-1/3 justify-between">
+        <button
+          onClick={handleClick}
+          className="bg-white hover:text-blue-600 text-blue-600 py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+        >
+          Sign in
+        </button>
+        <button
+          onClick={handleClick}
+          className="bg-white hover:text-blue-600 text-blue-600 py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+        >
+          Sign up
+        </button>
         <button
           onClick={handleClick}
           className="bg-white hover:text-blue-600 text-blue-600 py-2 px-4 rounded focus:outline-none focus:shadow-outline"
         >
           View product list
         </button>
-        {/* <svg
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-          strokeWidth={1.5}
-          stroke="currentColor"
-          className="w-6 h-6"
-          width="20px"
-          height="20px"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            d="M2.25 8.25h19.5M2.25 9h19.5m-16.5 5.25h6m-6 2.25h3m-3.75 3h15a2.25 2.25 0 002.25-2.25V6.75A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25v10.5A2.25 2.25 0 004.5 19.5z"
-          />
-        </svg> */}
       </div>
     </nav>
   );
