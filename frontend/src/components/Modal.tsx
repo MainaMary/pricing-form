@@ -2,9 +2,11 @@ import React, { useState, useEffect } from "react";
 import Label from "../components/Label";
 import Input from "../components/Input";
 import Button from "../components/Button";
-import { FormType, SnackbarProps } from "../types";
+import { SnackbarProps } from "../types";
 import CustomAlert from "./CustomAlert";
 import axios from "axios";
+import { Store } from "../store";
+import { fetchVarieties } from "../features/AddVarietySlice";
 interface Props {
   openModal: boolean;
   handleModal: () => void;
@@ -79,17 +81,18 @@ const Modal = ({ openModal, handleModal, itemInfo }: Props) => {
     );
     axios
       .put(
-        `https://pricing-form.herokuapp.com/productsVarieties/${itemInfo._id}`,
+        `https://price-setter.onrender.com/productsVarieties/${itemInfo._id}`,
         payload
       )
       .then((res) => {
-        if (res.statusText === "OK") {
+        if (res.status === 200) {
           setSnackbar({
             title: "Success",
             content: "Variety updated successfully",
             severity: "success",
           });
           setOpenSnack(true);
+          Store.dispatch(fetchVarieties());
         }
         console.log(res, "response");
       })

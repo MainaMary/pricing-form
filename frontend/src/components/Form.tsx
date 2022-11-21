@@ -83,7 +83,7 @@ const Form = () => {
   handleCost();
   const handleChange = (e: any) => {
     const { name, value } = e.target;
-    console.log(value, "value");
+
     if (value[0] === "-") {
       return;
     }
@@ -205,7 +205,7 @@ const Form = () => {
   const fetchLocations = async () => {
     try {
       const response = await axios.get(
-        "https://pricing-form.herokuapp.com/locations"
+        "https://price-setter.onrender.com/locations"
       );
       setLocations(response.data);
     } catch (err: any) {
@@ -232,10 +232,10 @@ const Form = () => {
                 setSelectVal(e.target.value);
                 setLocationErr("");
               }}
-              className="shadow border rounded w-full pl-2 pr-px-3 block text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              className="shadow bg-white border rounded w-full pl-2 pr-2 py-2 block text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             >
               <option value="" selected disabled>
-                Select location
+                Select location...
               </option>
               {locations?.map((location: any) => (
                 <option key={location.id} value={location.id}>

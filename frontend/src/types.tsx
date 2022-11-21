@@ -5,6 +5,8 @@ export type FormType = {
   discount: number;
   subsidy: number;
   date: any;
+  createdAt?: any;
+  updatedAt?: any;
   productId: string;
   total?: number;
   _id?: string;
