@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../store";
 import { useNavigate } from "react-router-dom";
 const Navbar = () => {
-  const dispatch = useDispatch();
   const navigate = useNavigate();
   const varietiesArr = useSelector((state: RootState) => state.variety);
   const handleClick = () => {
@@ -11,24 +10,31 @@ const Navbar = () => {
   };
 
   return (
-    <nav className=" text-white px-7 h-16 items-center shadow-md bg-blue-500 w-full flex justify-between">
-      <h2 className="text-xl font-bold">Price setter</h2>
+    <nav className=" md:text-white px-7 h-16 items-center shadow-md bg-white w-full flex justify-between">
+      <h2
+        className="text-xl text-gray-700 font-bold"
+        onClick={() => {
+          navigate("/");
+        }}
+      >
+        Price setter
+      </h2>
       <div className="flex w-1/3 justify-between">
         <button
           onClick={handleClick}
-          className="bg-white hover:text-blue-600 text-blue-600 py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+          className="bg-gray-700 hover:bg-blue-700 text-white py-2 px-4 rounded focus:outline-none focus:shadow-outline"
         >
           Sign in
         </button>
         <button
           onClick={handleClick}
-          className="bg-white hover:text-blue-600 text-blue-600 py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+          className="bg-gray-700 hover:bg-blue-700 text-white py-2 px-4 rounded focus:outline-none focus:shadow-outline"
         >
           Sign up
         </button>
         <button
           onClick={handleClick}
-          className="bg-white hover:text-blue-600 text-blue-600 py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+          className="bg-gray-700 hover:bg-blue-700 text-white py-2 px-4 rounded focus:outline-none focus:shadow-outline"
         >
           View product list
         </button>

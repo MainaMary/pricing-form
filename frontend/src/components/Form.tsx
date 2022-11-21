@@ -232,7 +232,7 @@ const Form = () => {
                 setSelectVal(e.target.value);
                 setLocationErr("");
               }}
-              className="shadow border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              className="shadow border rounded w-full pl-2 pr-px-3 block text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             >
               <option value="" selected disabled>
                 Select location

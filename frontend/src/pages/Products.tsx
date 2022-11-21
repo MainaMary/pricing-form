@@ -117,29 +117,31 @@ const Products = () => {
           <div>{openSnack && handleAlert(snackbar)}</div>
           {varietiesArr.items.length ? (
             <div className="hidden md:block">
-              <table className="md:w-full border-solid mt-20 mb-10 border-collapse border border-slate-500  ">
+              <table className="md:w-full border-solid mt-20 mb-10 border-collapse border rounded-2xl bg-white shadow-lg">
                 <thead>
                   <tr>
-                    <th className="text-left p-3 text-lg font-semibold">
+                    <th className="text-left p-3 text-lg font-semibold text-gray-700">
                       Name
                     </th>
-                    <th className="text-left p-3 text-lg font-semibold">
+                    <th className="text-left p-3 text-lg font-semibold text-gray-700">
                       Index
                     </th>
-                    <th className="text-left p-3 text-lg font-semibold">Tax</th>
-                    <th className="text-left p-3 text-lg font-semibold">
+                    <th className="text-left p-3 text-lg font-semibold text-gray-700">
+                      Tax
+                    </th>
+                    <th className="text-left p-3 text-lg font-semibold text-gray-700">
                       Discount
                     </th>
-                    <th className="text-left p-3 text-lg font-semibold">
+                    <th className="text-left p-3 text-lg font-semibold text-gray-700">
                       Subsidy
                     </th>
-                    <th className="text-left p-3 text-lgfont-semibold">
+                    <th className="text-left p-3 text-lgfont-semibold text-gray-700">
                       Total
                     </th>
-                    <th className="text-left p-3 text-lg font-semibold">
+                    <th className="text-left p-3 text-lg font-semibold text-gray-700">
                       Date
                     </th>
-                    <th className="text-left p-3 text-lg font-semibold">
+                    <th className="text-left p-3 text-lg font-semibold text-gray-700">
                       Action items
                     </th>
                   </tr>
@@ -149,7 +151,7 @@ const Products = () => {
                     varietiesArr?.status === "success" &&
                     varietiesArr?.items?.map((item: Props) => (
                       <tr key={item._id}>
-                        <td className=" p-3 text-sm text-gray-700 bg-white">
+                        <td className=" p-3 text-sm text-gray-700 ">
                           {item.name}
                         </td>
                         <td className="p-3 text-sm text-gray-700">
@@ -176,12 +178,12 @@ const Products = () => {
                         <td className=" p-3 text-sm text-gray-700">
                           {item.date ? formatDateTo(item.date) : "Not recorded"}
                         </td>
-                        <td className="crsor-pointer flex justify-between border-slate-700">
+                        <td className="p-3 crsor-pointer flex h-auto items-center justify-between border-slate-700">
                           <span
                             onClick={() => {
                               handleEdit(item), setItemInfo(item);
                             }}
-                            className="w-20  h-7 flex text-white font-bold justify-center  items-center text-center  mx-3 text-xs  uppercase  rounded-lg bg-blue-500"
+                            className="w-1/2  h-7 flex text-white font-bold justify-center  items-center text-center  mx-3 text-xs  uppercase  rounded-lg bg-gray-700"
                           >
                             Edit
                           </span>
@@ -190,7 +192,7 @@ const Products = () => {
                               // setId(item._id);
                               handleDelete(item._id);
                             }}
-                            className="w-20  h-7 flex text-white font-bold justify-center  items-center text-center  mx-3 text-xs  uppercase  rounded-lg bg-blue-500"
+                            className="w-1/2  h-7 flex text-white font-bold justify-center  items-center text-center  mx-3 text-xs  uppercase  rounded-lg bg-gray-700"
                           >
                             Delete
                           </span>
@@ -223,7 +225,7 @@ const Products = () => {
             </div>
             <div className="">
               <div className="my-3 flex justify-between w-3/5">
-                <p>Cost</p>
+                <p className="text-gray-700">Cost</p>
                 <p className="text-right ">{commafy(item.index)}</p>
               </div>
               <div className="my-3 flex justify-between w-3/5">
@@ -250,6 +252,15 @@ const Products = () => {
                 <p className="text-left text-gray-700 font-bold">
                   {item.total ? commafy(item.total) : "Not recorded"}
                 </p>
+              </div>
+              <div>
+                <Button
+                  onClick={() => {
+                    handleEdit(item), setItemInfo(item);
+                  }}
+                >
+                  Edit
+                </Button>
               </div>
             </div>
           </div>

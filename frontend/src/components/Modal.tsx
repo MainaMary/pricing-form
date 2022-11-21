@@ -65,6 +65,18 @@ const Modal = ({ openModal, handleModal, itemInfo }: Props) => {
       total: 4000,
       date: Date.now(),
     };
+    console.log(
+      name,
+      "name",
+      index,
+      "index",
+      tax,
+      "tax",
+      discount,
+      "discount",
+      subsidy,
+      "subsidy"
+    );
     axios
       .put(
         `https://pricing-form.herokuapp.com/productsVarieties/${itemInfo._id}`,
@@ -109,12 +121,22 @@ const Modal = ({ openModal, handleModal, itemInfo }: Props) => {
           backgroundColor: "#fff",
           width: "500px",
           padding: "8px 12px",
+          borderRadius: "5px",
         }}
         onSubmit={handleSubmit}
         onClick={(e) => {
           e.stopPropagation();
         }}
       >
+        <div className="flex justify-between">
+          <h1 className="text-gray-700 font-bold">Edit details</h1>
+          <p
+            className="font-bold text-xl text-gray-700 cursor-pointer"
+            onClick={handleModal}
+          >
+            x
+          </p>
+        </div>
         <div className="my-3">
           <Label>Name</Label>
           <Input
@@ -165,7 +187,7 @@ const Modal = ({ openModal, handleModal, itemInfo }: Props) => {
             value={subsidy}
           />
         </div>
-        <div className="mt-3 flex w-full justify-between">
+        <div className="my-6 flex w-full justify-between">
           <Button>Save</Button>
         </div>
       </form>
