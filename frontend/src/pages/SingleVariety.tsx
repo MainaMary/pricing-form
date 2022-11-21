@@ -8,17 +8,19 @@ import { useNavigate } from "react-router-dom";
 const SingleVariety = () => {
   const navigate = useNavigate();
   const { id } = useParams();
-  console.log(id, "varietyId");
+
   const getSingleVariety = async () => {
     try {
-      const res = await axios(`http://localhost:5000/productsVarieties/${id}`);
+      const res = await axios(
+        `https://price-setter.onrender.com/productsVarieties/${id}`
+      );
       return res;
     } catch (error: any) {
       console.log(error);
     }
   };
   const { data, isLoading } = useQuery(["singleVariety"], getSingleVariety);
-  console.log(data?.data, "data");
+
   return (
     <div className="bg-white flex shadow-lg m-auto mt-32 items-center justify-center max-w-xl rounded-md">
       <div className="w-full">

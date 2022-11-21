@@ -12,7 +12,7 @@ const Navbar = () => {
   return (
     <nav className=" md:text-white px-7 h-16 items-center shadow-md bg-white w-full flex justify-between">
       <h2
-        className="text-xl text-gray-700 font-bold"
+        className="text-gray-700 font-bold text-2xl"
         onClick={() => {
           navigate("/");
         }}

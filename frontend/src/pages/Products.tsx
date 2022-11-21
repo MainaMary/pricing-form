@@ -20,6 +20,8 @@ interface Props {
   _id?: string;
   date: any;
   total: number;
+  createdAt?: any;
+  updatedAt?: any;
 }
 interface Iprops {
   status: string;
@@ -39,21 +41,16 @@ const Products = () => {
   //const { data, isLoading, error } = useGetAllVarietiesQuery('products);
   const handleModal = () => {
     setOpenModal((prev) => !prev);
-    console.log("open modal");
   };
-  console.log(openModal);
-  useEffect(() => {
-    Store.dispatch(fetchVarieties());
-  }, []);
+
   const varietiesArr = useSelector((state: RootState) => state.addVariety);
 
   const handleDelete = async (id: string | undefined) => {
     setTimeout(() => {
-      console.log(id, "id");
       const response = axios
-        .delete(`https://pricing-form.herokuapp.com/productsVarieties/${id}`)
+        .delete(`https://price-setter.onrender.com/productsVarieties/${id}`)
         .then((res) => {
-          if (res.statusText === "OK") {
+          if (res.status === 200) {
             setSnackbar({
               title: "Success",
               content: "Variety deleted successfully",
@@ -71,7 +68,6 @@ const Products = () => {
   const handleEdit = (item: FormType) => {
     itemDetails = Object.assign({}, item);
 
-    //axios.put(`http://localhost:5000/productsVarieties/${item._id}`);
     handleModal();
   };
 
@@ -107,7 +103,9 @@ const Products = () => {
     return false;
   };
   objectExists(obj, arr);
-
+  useEffect(() => {
+    Store.dispatch(fetchVarieties());
+  }, []);
   return (
     <div className=" md:mx-32">
       {varietiesArr.status === "Loading..." ? (
@@ -183,7 +181,7 @@ const Products = () => {
                             onClick={() => {
                               handleEdit(item), setItemInfo(item);
                             }}
-                            className="w-1/2  h-7 flex text-white font-bold justify-center  items-center text-center  mx-3 text-xs  uppercase  rounded-lg bg-gray-700"
+                            className="w-1/2 cursor-pointer h-7 flex text-white font-bold justify-center  items-center text-center  mx-3 text-xs  uppercase  rounded-lg bg-gray-700"
                           >
                             Edit
                           </span>
@@ -192,7 +190,7 @@ const Products = () => {
                               // setId(item._id);
                               handleDelete(item._id);
                             }}
-                            className="w-1/2  h-7 flex text-white font-bold justify-center  items-center text-center  mx-3 text-xs  uppercase  rounded-lg bg-gray-700"
+                            className="w-1/2 cursor-pointer h-7 flex text-white font-bold justify-center  items-center text-center  mx-3 text-xs  uppercase  rounded-lg bg-gray-700"
                           >
                             Delete
                           </span>
@@ -212,11 +210,9 @@ const Products = () => {
           <div className="bg-white p-4 rounded-lg shadow" key={item._id}>
             <div className="flex justify-between w-full bg-white">
               <p>{item.name}</p>
-              <p>{item.date ? formatDateTo(item.date) : "Not recorded"}</p>
+              <p>{item.date ? formatDateTo(item.createdAt) : "Not recorded"}</p>
               <p
                 onClick={() => {
-                  // setId(item._id);
-
                   handleDelete(item._id);
                 }}
               >

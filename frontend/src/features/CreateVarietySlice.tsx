@@ -15,7 +15,7 @@ export const addVarieties = createAsyncThunk(
   async (payload: FormType, { rejectWithValue }: any) => {
     try {
       const response = await axios.post(
-        "https://pricing-form.herokuapp.com/productsVarieties",
+        "https://price-setter.onrender.com/productsVarieties",
         payload
       );
 

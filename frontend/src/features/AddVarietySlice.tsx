@@ -17,9 +17,9 @@ export const fetchVarieties = createAsyncThunk(
   async () => {
     try {
       const response = await axios.get(
-        "https://pricing-form.herokuapp.com/productsVarieties"
+        "https://price-setter.onrender.com/productsVarieties"
       );
-
+      console.log(response?.data, "response data");
       return response?.data;
     } catch (error: any) {
       console.log(error.messaage);
