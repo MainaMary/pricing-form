@@ -9,11 +9,13 @@ const app = express();
 const port = process.env.PORT || 5000;
 const connection_string = process.env.CONNECTION_STRING;
 const location = require("./location");
+const notFound = require("./middleware/NotFound");
 
 console.log(Price);
 //configure middleware
 app.use(express.json());
 app.use(cors());
+app.use(notFound);
 
 // all routes start with  /productsVarieties
 app.use("/", routes);
