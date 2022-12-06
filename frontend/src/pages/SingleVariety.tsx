@@ -11,10 +11,12 @@ const SingleVariety = () => {
 
   const getSingleVariety = async () => {
     try {
-      const res = await axios(
-        `https://price-setter.onrender.com/productsVarieties/${id}`
-      );
-      return res;
+      if (id) {
+        const res = await axios(
+          `https://price-setter.onrender.com/productsVarieties/${id}`
+        );
+        return res;
+      }
     } catch (error: any) {
       console.log(error);
     }
