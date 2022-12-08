@@ -4,6 +4,7 @@ const mongoose = require("mongoose");
 const Price = require("./models/priceForm");
 const Product = require("./models/product");
 const routes = require("./routes/prices");
+const errorHandlerMiddleware = require("./middleware/ErrorMiddleware");
 require("dotenv").config();
 const app = express();
 const port = process.env.PORT || 5000;
@@ -16,7 +17,7 @@ console.log(Price);
 app.use(express.json());
 app.use(cors());
 app.use(notFound);
-
+app.use(errorHandlerMiddleware);
 // all routes start with  /productsVarieties
 app.use("/", routes);
 
