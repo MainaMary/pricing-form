@@ -55,11 +55,11 @@ router.post("/productsVarieties", async (req, res) => {
   }
 });
 
-router.get("/productsVarieties", async (req, res) => {
+router.get("/", async (req, res) => {
   const response = await Price.find().sort({ createdAt: "descending" });
   res.status(200).send(response);
 });
-router.get("/productsVarieties/:id", async (req, res) => {
+router.get("/:id", async (req, res) => {
   try {
     const response = await Price.findById(req.params.id);
     if (!response) return res.status(404).res.send("Variety not found!");
@@ -68,7 +68,7 @@ router.get("/productsVarieties/:id", async (req, res) => {
     res.status(500).send(err.message);
   }
 });
-router.delete("/productsVarieties/:id", async (req, res) => {
+router.delete("/:id", async (req, res) => {
   try {
     const deletedVariety = await Price.findByIdAndRemove(req.params.id.trim());
     if (!deletedVariety) return res.status(404).send("Variety not found");
@@ -77,7 +77,7 @@ router.delete("/productsVarieties/:id", async (req, res) => {
     res.status(500).send(error.message);
   }
 });
-router.put("/productsVarieties/:id", async (req, res) => {
+router.put("/:id", async (req, res) => {
   try {
     const updatedProduct = await Price.findByIdAndUpdate(
       req.params.id,

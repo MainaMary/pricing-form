@@ -16,10 +16,9 @@ console.log(Price);
 //configure middleware
 app.use(express.json());
 app.use(cors());
-app.use(notFound);
-app.use(errorHandlerMiddleware);
+
 // all routes start with  /productsVarieties
-app.use("/", routes);
+app.use("/productsVarieties", routes);
 
 app.get("/locations", (req, res) => {
   res.send(location);
